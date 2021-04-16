@@ -4,9 +4,9 @@
 * How To use :
 
 ```
-  ./gtf tvshow
+  ./gtf.sh tvshow
 ```
   or
 ```
-  ./gtf game-of
+  ./gtf.sh game-of
 ```
