@@ -1,0 +1,4 @@
+#!/bin/bash
+# Retrieve Public Ip Address
+
+curl -s "https://www.whatismypublicip.com/" | grep -oE "[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}"
