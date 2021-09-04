@@ -21,17 +21,22 @@ if [[ $1 == "check" ]]
 then
 	if [[ -f syssum ]]
 	then
-		while read file
+		for i in $(find /{,s}bin /usr/{,s}bin -type f,l)
 		do
-			TOCHECK=$(echo "$file" | sed -E "s/.*\ //")
-			SUM=$(echo "$file" | sed -E "s/\ .*//")
-			if [[ $(sha512sum "$TOCHECK" | sed -E "s/\ .*//") == $SUM ]]
+			TOCHECK=$(grep ".*\ $i$" syssum | sed -E "s/.*\ \ //")
+			SUM=$(grep ".*\ $i$" syssum | sed -E "s/\ .*//")
+			if [[ $i == $TOCHECK ]]
 			then
-				echo "$TOCHECK [OK]"
-			else
-				echo "$TOCHECK [FAILED]" | tee -a failed
+				if [[ $(sha512sum "$TOCHECK" | sed -E "s/\ .*//") == $SUM ]]
+				then
+					echo "$TOCHECK check [OK]"
+				else
+					echo "$TOCHECK check [FAILED]" | tee -a failed
+				fi
+			else	
+				echo "$i [FAILED] file was not in our database " | tee -a failed
 			fi
-		done < syssum
+		done 
 		if [[ -f failed ]]
 		then
 			echo -e "\n########### Failed #########\n"
