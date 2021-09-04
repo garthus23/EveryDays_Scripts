@@ -1,4 +1,4 @@
-Download Recursive Dependencies Of A Package
+Download Recursive Dependencies Of A Package Ubuntu/Debian
 
 # Voir la liste des dep :
 
